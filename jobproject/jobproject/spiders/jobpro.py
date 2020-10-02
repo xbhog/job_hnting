@@ -28,15 +28,16 @@ class JobproSpider(scrapy.Spider):
             # print(next_page_url)
             #构造的Urlcallback到data_parse函数中
             yield scrapy.Request(url=next_page_url,callback=self.data_parse)
-            print("-------------第%s页完成-------------" %number)
+
             time.sleep(1)
             # print(next_page_url)
             #设置页数
-            if number == 4:
+            if number == 1:
                 break
 
     #解析函数
     def data_parse(self,response):
+        n = 1
         # print(response.url)
         #获取json对象
         jsonObject = self.get_num(response)[1]
@@ -58,10 +59,13 @@ class JobproSpider(scrapy.Spider):
                 else:
                     items['education'] = job_item['attribute_text'][2]
                     items['Workexperience'] = job_item['attribute_text'][1]
-                # return  items
-                print(items)
+                # print(items)
+                yield items
+
             except:
                 pass
+        print("-------------第%s页完成-------------" % n)
+        n += 1
     #获取总页数,返回页数与json对象
     def get_num(self,response):
         # 定位数据位置，提取json数据
@@ -72,30 +76,4 @@ class JobproSpider(scrapy.Spider):
         jsonObject = json.loads(jsonText)
         number = jsonObject['total_page']
         return number,jsonObject
-
-    # def dataparse(self, response):
-    #     #定位数据位置，提取json数据
-    #     search_pattern = "window.__SEARCH_RESULT__ = (.*?)</script>"
-    #     jsonText = re.search(search_pattern, response.text, re.M | re.S).group(1)
-    #
-    #     #解析json数据
-    #     jsonObject = json.loads(jsonText)
-    #     for job_item in jsonObject["engine_search_result"]:
-    #         items = JobprojectItem()
-    #         items['job_name'] = job_item['job_name']
-    #         items['company_name'] = job_item["company_name"]
-    #         #发布时间
-    #         items['Releasetime'] = job_item['issuedate']
-    #         items['salary'] = job_item['providesalary_text']
-    #         items['site'] = job_item['workarea_text']
-    #         #如果attribute_text长度为4则包括工作经验，若为3则不包括工作经验
-    #         if len(job_item['attribute_text']) == 3:
-    #             items['education'] = job_item['attribute_text'][1]
-    #             #工作经验
-    #             items['Workexperience'] = ''
-    #         else:
-    #             items['education'] = job_item['attribute_text'][2]
-    #             items['Workexperience'] = job_item['attribute_text'][1]
-    #         # yield scrapy.Request()
-    #         return  items
 

@@ -17,3 +17,8 @@ class app51data(models.Model):
     company_name = models.CharField(max_length=50)
     #工作经验
     Workexperience = models.CharField(max_length=20)
+    class Meta:
+        db_table = 'jobsql51'
+
+    def __str__(self):
+        return self.job_name

@@ -79,8 +79,14 @@ WSGI_APPLICATION = 'job_hnting.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'job_mysql',
+        'USER': 'root',
+        'PASSWORD': '123',
+        'HOST': '47.97.152.240',
+        #'OPTIONS': {'init_command': 'SET default_storage_engine=MyISAM;'}
     }
 }
 
