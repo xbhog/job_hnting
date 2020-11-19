@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from app51 import  views
+from app51.views import ReadView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('app51/',include(=))
-    path('app51/',views.index)
+    # path('app51/',views.index)
+    path('app51/', ReadView.as_view(), name='index')
+
 ]

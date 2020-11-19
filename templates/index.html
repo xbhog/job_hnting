@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load staticfiles %}
 <head>
     <meta charset="UTF-8">
-    <title>django_scrapy_test</title>
+    <title>django-scrapy初级测试</title>
+    <script src="http://oog4yfyu0.bkt.clouddn.com/echarts.min.js"></script>
+    <script src="http://oog4yfyu0.bkt.clouddn.com/echarts-gl.js"></script>
+    <script type="text/javascript " src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript " src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript " src="http://oog4yfyu0.bkt.clouddn.com/wordcloud.js"></script>
 </head>
 <body>
 <h1>django_scrapy_测试</h1>
+<!--后面是header -->
+<div id="content">
+    {% for data in  all_data %}
+        {# 标题 #}
+        <p>{{ data.job_name }}</p>
+
+    {% endfor %}
+
+</div>
 </body>
 </html>
